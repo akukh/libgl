@@ -21,11 +21,11 @@ static constexpr shaders_t shaders{
         varying vec2 v_texcoord;
 
         uniform highp vec4 u_center;
-        uniform highp mat4 u_projection;
+        uniform highp mat4 u_mvp;
 
         void main() {
             v_texcoord  = a_texcoord;
-            gl_Position = u_center + (u_projection * vec4(a_position, 0.0, 1.0));
+            gl_Position = u_center + (u_mvp * vec4(a_position, 0.0, 1.0));
         }
     )",
     .fragment = R"(
@@ -36,7 +36,7 @@ static constexpr shaders_t shaders{
         uniform sampler2D u_texture_sampler;
 
         void main() {
-            gl_FragColor = texture(u_texture_sampler, v_texcoord); // vec4(1.0, 0.5, 0.2, 1.0);
+            gl_FragColor = texture2D(u_texture_sampler, v_texcoord); // vec4(1.0, 0.5, 0.2, 1.0);
         }
     )"};
 // clang-format on
